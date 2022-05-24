@@ -1,7 +1,19 @@
-import React from "react";
-
-const index = () => {
-  return <div>index</div>;
+import { Grid, Typography, Box } from "@mui/material";
+import { Product, Footer, FooterBanner } from "../components";
+const Home = () => {
+  return (
+    <>
+      HeroBanner
+      <Box className="products-heading">
+        <Typography variant="h2">Best Selling Products</Typography>
+        <Typography variant="body1">Speakers of many variantions</Typography>
+      </Box>
+      <Box className="products-container">
+        {["Product 1 ", "Product 2"].map((product, index) => product)}
+      </Box>
+      <Footer />
+    </>
+  );
 };
 
-export default index;
+export default Home;
