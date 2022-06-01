@@ -7,9 +7,10 @@ body,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   box-sizing: border-box;
 }
-::-webkit-scrollbar {
-  width: 0px;
-}
+/* ::-webkit-scrollbar {
+  width: 1rem;
+  background-color: #f02d34;
+} */
 
 a {
   color: inherit;
@@ -85,12 +86,13 @@ span.text-red {
 }
 .cart-item-qty {
   position: absolute;
-  right: -8px;
-  font-size: 12px;
+  top: 2px;
+  right: 12px;
+  font-size: 10px;
   color: #eee;
   background-color: #f02d34;
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   text-align: center;
   font-weight: 600;
@@ -534,10 +536,10 @@ span.text-red {
   color: rgb(49, 168, 49);
 }
 
-.maylike-products-wrapper {
+.maylike-products.wrapper {
   margin-top: 120px;
 }
-.maylike-products-wrapper h2 {
+.maylike-products-wrapper-h2 {
   text-align: center;
   margin: 50px;
   color: #324d67;
