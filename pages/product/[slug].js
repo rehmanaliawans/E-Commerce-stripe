@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { useState, useEffect } from "react";
 import { Button, Grid, Typography } from "@mui/material";
 import { client, urlFor } from "../../lib/client";
 import {
@@ -7,27 +8,37 @@ import {
   AiFillStar,
   AiOutlineStar,
 } from "react-icons/ai";
+import { Product } from "../../components";
+import { useStateContext } from "../../context/stateContext";
 
 const ProductDetails = ({ product, products }) => {
   const { image, name, price, details } = product;
+  const [index, setIndex] = useState(0);
+  const { incQty, decQty, qty } = useStateContext();
   return (
     <Grid>
       <Grid className="product-detail-container">
         <Grid>
           <Grid className="image-container">
-            <img src={urlFor(image && image[0])} alt="single product image" />
+            <img
+              src={urlFor(image && image[index])}
+              alt="single product image"
+              className="product-detail-image"
+            />
           </Grid>
-          {/* <Grid className="product-details">
-            {image?.map((image, index) => (
+          <Grid className="small-images-container">
+            {image?.map((image, i) => (
               <img
-                key={index}
+                key={i}
                 src={urlFor(image)}
                 alt="multiple product images"
-                className="product-image"
-                onMouseEnter=""
+                className={
+                  i === index ? "small-image selected-image" : "small-image"
+                }
+                onMouseEnter={() => setIndex(i)}
               />
             ))}
-          </Grid> */}
+          </Grid>
         </Grid>
         <Grid className="product-detail-desc">
           <Typography variant="h4" component="h2">
@@ -58,25 +69,32 @@ const ProductDetails = ({ product, products }) => {
               Quantity:
             </Typography>
             <Typography className="quantity-desc">
-              <span className="minus" onClick="">
+              <span className="minus" onClick={decQty}>
                 <AiOutlineMinus />
               </span>
-              <span className="num">1</span>
-              <span className="plus" onClick="">
+              <span className="num">{qty}</span>
+              <span className="plus" onClick={incQty}>
                 <AiOutlinePlus />
               </span>
             </Typography>
           </Grid>
           <Grid className="buttons">
             <Button className="add-to-cart">Add to Cart</Button>
-            <Button className="buy-now">But Now</Button>
+            <Button className="buy-now">Buy Now</Button>
           </Grid>
         </Grid>
       </Grid>
       <Grid className="maylike-products.wrapper">
         <Typography variant="h2" className="maylike-products-wrapper-h2">
-          You may also like 
+          You may also like
         </Typography>
+        <Grid className="marquee">
+          <Grid className="maylike-products-container track">
+            {products?.map((item) => (
+              <Product key={item._id} product={item} />
+            ))}
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   );
@@ -90,11 +108,10 @@ export const getStaticPaths = async () => {
     }`;
 
   const products = await client.fetch(query);
-  console.log(products);
+
   const paths = products.map((product) => ({
     params: { slug: product.slug.current },
   }));
-  console.log(paths);
   return { paths, fallback: "blocking" };
 };
 

@@ -6,6 +6,7 @@ import { urlFor } from "../../lib/client";
 import { Box } from "@mui/system";
 import { Grid, Typography } from "@mui/material";
 const Product = ({ product: { image, slug, price, name } }) => {
+  console.log(image, slug, price, name);
   return (
     <Box>
       <Link href={`/product/${slug.current}`}>

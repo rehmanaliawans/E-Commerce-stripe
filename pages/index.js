@@ -12,7 +12,7 @@ const Home = ({ products, bannerData }) => {
       </Box>
       <Box className="products-container">
         {products?.map((product) => (
-          <Product key={product.id} product={product && product} />
+          <Product key={product._id} product={product && product} />
         ))}
       </Box>
       <FooterBanner footerBanner={bannerData && bannerData[0]} />
